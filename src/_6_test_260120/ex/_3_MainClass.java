@@ -90,6 +90,10 @@ public class _3_MainClass {
 
                     // 인덱스 증가,. 현재 가입할 인원 증가.
                     count++;
+
+                    // 260120_실습4_풀이_업그레이드_임시저장파일_추가, 순서3
+                    // 회원가입시, 메모리상의 내용을 파일에 저장하는 메서드를 이용하자.
+                    saveMembers(members, count);
                     break;
 
                 //2, 3번 작업 이어서 진행하기.
@@ -191,12 +195,17 @@ public class _3_MainClass {
             // 반복문을 이용해서, 메모리상에 저장된 멤버들을, members.txt 파일에 기록하는 과정.
             for(int i = 0; i < count; i++) {
                 _6_test_260120.ex._3_MemberBase m = members[i];
+
+                // 받아온 데이터 정보를 확인
+//                System.out.println("디버깅1 넘어온 데이터 확인 : " + m.getName());
+
                 // 파일에 저장 형식 : 이름,이메일,패스워드,나이 (구분자: 쉼표로 구분, csv)
                 // 기존 _3_MemberBase 클래스, 이메일과, 패스워드 만 읽을수 있는데,
                 // 여기서, 추가로, 이름, 나이도 같이 조회하게 기능 추가.
                 // _3_MemberBase 클래스 이동해서, getter 생성, 이름과, 나이 추가.
 
                 String line = m.getName()+","+m.getEmail()+","+m.getPassword()+","+m.getAge();
+//                System.out.println("디버깅2 넘어온 데이터 확인2 line : " + line);
                 // 파일에 한줄씩 기록 하겠다.
                 bw.write(line);
                 bw.newLine(); // 줄바꿈 함.
@@ -206,6 +215,15 @@ public class _3_MainClass {
         } catch (IOException e){
             System.out.println("오류가 발생 했습니다. 원인: " + e.getMessage());
         }finally {
+            // 에러가 있든 ,없든 무조건 실행 되는 구간.
+            // 자원 반납,  bw 기능 반납하기.
+            if(bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    System.out.println("오류 발생, 파일 닫기 실패. ");
+                }
+            }
 
         }
     }
