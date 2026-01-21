@@ -2,7 +2,7 @@ package _7_test_260121;
 
 import java.util.HashSet;
 
-public class _1_Test_Collection_HashSet_Ex1 {
+public class _2_Test_Collection_HashSet_Ex1 {
     public static void main(String[] args) {
         // HashSet
         // 1 생성
