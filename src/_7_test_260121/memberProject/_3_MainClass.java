@@ -29,6 +29,10 @@ public class _3_MainClass {
         // 260121_업그레이드_배열에서ArrayList_변경, 순서1-3
 //        count = loadMembers(members);
 
+        // 260121_업그레이드_배열에서ArrayList_변경, 순서6
+        // 프로그램 최초 실행시, 파일에서 먼저 파일 불러오기.
+        loadMembers(members);
+
         // 260120_실습4_풀이_로그인한_유저_표기추가, 순서1
         // 현재 로그인한 회원을 저장할 변수 (초기갓 null)
         // 로그인 후, 로그인한 유저로 값을 채울 예정.
@@ -275,7 +279,10 @@ public class _3_MainClass {
 // 260120_실습4_풀이_업그레이드_임시저장파일_추가, 순서3
 //    2) 불러오는 기능의 메서드 만들기, 정적(static)
     // 준비물 : 1) 메모리에 저장된 배열, members
-    public static int loadMembers(_3_MemberBase[] members){
+
+    // 260121_업그레이드_배열에서ArrayList_변경, 순서6-2
+//    public static int loadMembers(_3_MemberBase[] members){
+    public static int loadMembers(List<_3_MemberBase> members){
         // 물리 파일 : FILE_NAME = members.txt 파일에 접근하고, 가져오는 기능을 담당하는 클래스를 이용.
         // 담당 클래스 : File
         // 스캐너 도구를 사용 하듯이,
@@ -309,9 +316,13 @@ public class _3_MainClass {
                 // 유효성 기본 체크, 읽을 때, 배열의 크기 이상을 읽지 못하게 막기.
                 // 예시) loadCount : 4, members : 회원 가입된 인원 3명
                 // 못 불러옴. 그래서 오류가 나니까, 미연에 방지하자.
-                if(loadCount >= members.length) {
-                    break;
-                }
+
+                // 260121_업그레이드_배열에서ArrayList_변경, 순서6-3
+                // 필요가 없다. 이제는 고정 크기가 아니여서,
+//                if(loadCount >= members.length) {
+//                    break;
+//                }
+
                 // 정상적으로 불러오는 경우
                 // 쉼표를 기준으로 데이터를 불러오기.
                 // 예시) line = "이상용,lsy@naver.com,1234,20"
@@ -327,7 +338,11 @@ public class _3_MainClass {
 
                     // 파일에서 읽어온 내용을 -> 메모리 상의 배열에 담기.
                     //name,email,password,age -> 객체에 담고 -> 배열에 담기.
-                    members[loadCount] = new _3_NormalMember(name,email,password,age);
+
+                    // 260121_업그레이드_배열에서ArrayList_변경, 순서6-4
+//                    members[loadCount] = new _3_NormalMember(name,email,password,age);
+                      members.add(new _3_NormalMember(name,email,password,age));
+
                     // 파일에서 불러온 사람의 숫자를 확인하는 상태 변수 카운트 1증가.
                     loadCount++;
 
